@@ -1,25 +1,53 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import axios from "axios"
+//import "./styles.css";
 
-function App() {
+export default function App() {
+  const [value, setValue] = useState("");
+  const [username, setUsername] = useState("");
+  const [data, setData] = useState({});
+  const onClick = () => {
+    setUsername("https://api.github.com/users/" + value);
+  };
+
+  useEffect(() => {
+    githubApi();
+  }, [username]);
+
+  const githubApi = async () => {
+    const resp = await axios.get(username);
+    setData(resp.data)
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <input value={value} onChange={(e) => setValue(e.target.value)} />
+      <button onClick={onClick}>search</button>
+      <div className="user-container">
+        <h5>{data.login}</h5>
+      </div>
     </div>
   );
 }
 
-export default App;
+// function A (props) {
+//   return (
+//     <div>im A{props.children}</div>
+//   )
+// }
+
+// function B () {
+//   return (
+//     <div>im B</div>
+//   )
+// }
+
+// export default function App() {
+//   return (
+//   <A>
+//     <B/> // children
+//   </A>
+//   )
+// }
+
+// im A im B
