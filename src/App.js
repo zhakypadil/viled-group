@@ -6,6 +6,7 @@ export default function App() {
   const [value, setValue] = useState("");
   const [username, setUsername] = useState("");
   const [data, setData] = useState({});
+
   const onClick = () => {
     setUsername("https://api.github.com/users/" + value);
   };
@@ -24,7 +25,9 @@ export default function App() {
       <input value={value} onChange={(e) => setValue(e.target.value)} />
       <button onClick={onClick}>search</button>
       <div className="user-container">
-        <h5>{data.login}</h5>
+        <h5>Full Name: {data.name}</h5>
+        <h5>Number of Followers: {data.followers}</h5>
+        <h5>Link to the data about followers: {data.followers_url}</h5>
       </div>
     </div>
   );
